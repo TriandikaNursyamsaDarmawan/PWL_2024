@@ -2,6 +2,12 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\BabyController;
+use App\Http\Controllers\BeautyController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FoodController;
+use App\Http\Controllers\HalamanawalController;
+use App\Http\Controllers\HcareController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\WelcomeController;
@@ -43,3 +49,34 @@ Route::get('/about', function () {
         Route::get('/about', [AboutController::class,'about']); 
 
         Route::get('/articles', [ArticleController::class,'articles']); 
+
+        use App\Http\Controllers\PhotoController;
+use Symfony\Component\Routing\Attribute\Route as AttributeRoute;
+
+        Route::resource('photos', PhotoController::class); 
+        Route::resource('photos', PhotoController::class)->only([ 
+            'index', 'show' 
+            ]); 
+            Route::resource('photos', PhotoController::class)->except([ 
+            'create', 'store', 'update', 'destroy' 
+            ]); 
+            
+            Route::get('/greeting', [WelcomeController::class, 'greeting']);
+
+            Route::get('/home',[HalamanawalController::class,'home']);
+
+            Route::prefix('/category')->group(function () { 
+                Route::get('/food', [FoodController::class, 'food']); 
+                Route::get('/beauty', [BeautyController::class, 'beauty']); 
+                Route::get('/hcare', [HcareController::class, 'hcare']); 
+                Route::get('/baby', [BabyController::class, 'baby']); 
+                
+               }); 
+               Route::get('/TugasUser/{id?}', function ($name) { 
+                return 'Penjualan dengan Id '.$name; 
+             });
+        
+            
+            
+
+
